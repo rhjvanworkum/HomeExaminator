@@ -1,0 +1,50 @@
+<annotation>
+	<folder>Smartphone Images</folder>
+	<filename>Img 1058.jpg</filename>
+	<path>C:\Users\Benedicta.Kaburu\Downloads\rsg-labelImg-20190623T085753Z-001\rsg-labelImg\data\Smartphone Images\Img 1058.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>612</width>
+		<height>408</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>smartphone</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>551</xmin>
+			<ymin>219</ymin>
+			<xmax>604</xmax>
+			<ymax>244</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>smartphone</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>329</xmin>
+			<ymin>246</ymin>
+			<xmax>376</xmax>
+			<ymax>272</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>smartphone</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>86</xmin>
+			<ymin>229</ymin>
+			<xmax>122</xmax>
+			<ymax>259</ymax>
+		</bndbox>
+	</object>
+</annotation>

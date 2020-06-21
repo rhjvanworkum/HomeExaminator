@@ -1,0 +1,100 @@
+/* css code for loader element, generated on https://icons8.com/cssload */
+
+.cssload {
+	width: 43px;
+	height: 43px;
+	margin: 0 auto;
+    display: none;
+    position: relative;
+    bottom: -2%;
+    left: 48%;
+    float: left;
+	transform: rotateZ(45deg);
+		-webkit-transform: rotateZ(45deg);
+}
+.cssload .cssload-cube {
+	position: relative;
+	transform: rotateZ(45deg);
+		-webkit-transform: rotateZ(45deg);
+}
+.cssload .cssload-cube {
+	float: left;
+	width: 50%;
+	height: 50%;
+	position: relative;
+	transform: scale(1.1);
+		-webkit-transform: scale(1.1);
+}
+.cssload .cssload-cube:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(43,160,199);
+	animation: cssload-fold-thecube 1.68s infinite linear both;
+		-webkit-animation: cssload-fold-thecube 1.68s infinite linear both;
+	transform-origin: 100% 100%;
+		-webkit-transform-origin: 100% 100%;
+}
+.cssload .cssload2 {
+	transform: scale(1.1) rotateZ(90deg);
+		-webkit-transform: scale(1.1) rotateZ(90deg);
+}
+.cssload .cssload3 {
+	transform: scale(1.1) rotateZ(180deg);
+		-webkit-transform: scale(1.1) rotateZ(180deg);
+}
+.cssload .cssload4 {
+	transform: scale(1.1) rotateZ(270deg);
+		-webkit-transform: scale(1.1) rotateZ(270deg);
+}
+.cssload .cssload2:before {
+	animation-delay: 0.205s;
+		-webkit-animation-delay: 0.205s;
+}
+.cssload .cssload3:before {
+	animation-delay: 0.42s;
+		-webkit-animation-delay: 0.42s;
+}
+.cssload .cssload4:before {
+	animation-delay: 0.625s;
+		-webkit-animation-delay: 0.625s;
+}
+
+
+
+@keyframes cssload-fold-thecube {
+	0%, 10% {
+		transform: perspective(80px) rotateX(-180deg);
+		opacity: 0;
+	}
+	25%,
+				75% {
+		transform: perspective(80px) rotateX(0deg);
+		opacity: 1;
+	}
+	90%,
+				100% {
+		transform: perspective(80px) rotateY(180deg);
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes cssload-fold-thecube {
+	0%, 10% {
+		-webkit-transform: perspective(80px) rotateX(-180deg);
+		opacity: 0;
+	}
+	25%,
+				75% {
+		-webkit-transform: perspective(80px) rotateX(0deg);
+		opacity: 1;
+	}
+	90%,
+				100% {
+		-webkit-transform: perspective(80px) rotateY(180deg);
+		opacity: 0;
+	}
+}

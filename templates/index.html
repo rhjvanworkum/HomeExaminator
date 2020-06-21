@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/index.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/loader.css") }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+    <title>Home Examinator</title>
+
+  </head>
+  <body onload="window.open('', '_self', '');">
+    <div class="wrap">
+
+        <div class="slide slide1">
+            <p>Welcome to the Home Examinator(demo-version), today I will be taking your exam</p>
+            <p class="subtext">Please make sure that you have your phone attachted with a phone holder to your desk
+                with your whole desk visible to the camera view. You should also have the IP webcam app opened on your phone
+                and clicked on "Start Server". For more info, see https://github.com/rhjvanworkum/HomeExaminator
+            </p>
+            <button class="nextButton nextButton1">Continue</button>
+        </div>
+
+        <div class="slide slide2">
+            <p>No fun without any rules right?</p>
+            <p class="subtext">Here the institution's rules will be displayed</p>
+            <ul class="rules">
+                <li>You are making this exam completely by yourself</li>
+                <li>No use of phones, calculators or other digital devices are allowed during this exam</li>
+                <li>You are not allowed to leave your desk at anytime during the exam</li>
+                <li>The only place allowed to work on the exam is your desk, so please keep your hands on your desk, otherwise you will make us suspicious</li>
+            </ul>
+            <button class="nextButton nextButton2">Continue</button>
+        </div>
+
+        <div class="slide slide3">
+            <p>Register yourself(demo-version only)</p>
+            <p class="subtext">Have you not used the Home Examinator before? Than please register and upload a photo of yourself, otherwise you can just continue</p>
+            <button class="registerButton" onClick="register()">I am not registered yet</button>
+            <button class="nextButton nextButton3">I am already registered</button>
+
+            <form id="registerForm" onSubmit="return submitForm()" enctype=multipart/form-data>
+                <input type="text" id="student" placeholder="Your Name">
+                <label for="file" id='file-label'>Select Photo</label>
+                <input name="photo-file" type="file" id="file" placeholder="Your photo">
+                <input type="submit" id="submit" value="Submit">
+            </form>
+
+            <div class="cssload load3">
+                <div class="cssload-cube cssload1"></div>
+                <div class="cssload-cube cssload2"></div>
+                <div class="cssload-cube cssload4"></div>
+                <div class="cssload-cube cssload3"></div>
+            </div>
+            <button class="nextButton nextButtonRegister">Continue</button>
+
+        </div>
+
+        <div class="slide slide4">
+            <p> Welcome to your exam, now let's start verifaction </p>
+            <p class="subtext">Please press the button to start video verification</p>
+            <button class="verifyButton verifyPCCamButton" onClick="verifyPCCam()">Verify Camera</button>
+            <div class="cssload load4">
+                <div class="cssload-cube cssload1"></div>
+                <div class="cssload-cube cssload2"></div>
+                <div class="cssload-cube cssload4"></div>
+                <div class="cssload-cube cssload3"></div>
+            </div>
+            <button class="nextButton nextButton4">Continue</button>
+            <button class="closeButton shutdown4" onClick="shutdownServer()">restart</button>
+            <p class="errorDisplay error4"></p>
+        </div>
+
+        <div class="slide slide5">
+            <p> Next step: verify your phone camera</p>
+            <p class="subtext">Please press the button to start verification</p>
+            <button class="verifyButton verifyPhoneCamButton" onClick="verifyPhoneCam()">Verify Camera</button>
+            <div class="cssload load5">
+                <div class="cssload-cube cssload1"></div>
+                <div class="cssload-cube cssload2"></div>
+                <div class="cssload-cube cssload4"></div>
+                <div class="cssload-cube cssload3"></div>
+            </div>
+            <button class="nextButton nextButton5">Continue</button>
+            <button class="closeButton shutdown5" onClick="shutdownServer()">restart</button>
+            <p class="errorDisplay error5"></p>
+        </div>
+
+        <div class="slide slide6">
+            <p>Time to check if it is really you...</p>
+            <p class="subtext">Please select your name and press the button to verify</p>
+            <select id="student-select" class="select" method="GET" action="/">
+                {% for student in students %}
+                <option class="options" value= "{{student}}" SELECTED>{{student}}</option>"
+                {% endfor %}
+            </select>
+            <div class="cssload load6">
+                <div class="cssload-cube cssload1"></div>
+                <div class="cssload-cube cssload2"></div>
+                <div class="cssload-cube cssload4"></div>
+                <div class="cssload-cube cssload3"></div>
+            </div>
+            <button class="nextButton nextButton6">Continue</button>
+            <p class="errorDisplay error6"></p>
+        </div>
+
+        <div class="slide slide7">
+            <p>Now let's look at your working desk</p>
+            <p class="subtext">Make sure that you phone camera is setup right and your hands are visible on the desk</p>
+            <button class="verifyButton verifyHandsButton" onClick="verifyHands()">Verify Desk</button>
+            <div class="cssload load7">
+                <div class="cssload-cube cssload1"></div>
+                <div class="cssload-cube cssload2"></div>
+                <div class="cssload-cube cssload4"></div>
+                <div class="cssload-cube cssload3"></div>
+            </div>
+            <button class="nextButton nextButton7">Continue</button>
+            <button class="closeButton shutdown7" onClick="shutdownServer()">restart</button>
+            <p class="errorDisplay error7"></p>
+        </div>
+
+        <div class="slide slide8">
+            <p>Final check: Are your phone and pc close enough?</p>
+            <p id="subtext-audio" class="subtext">press the button below and say: hello my name is + your name, out loud</p>
+            <button class="verifyButton verifyAudioButton" onClick="verifyAudio()">Verify Audio</button>
+            <div class="cssload load8">
+                <div class="cssload-cube cssload1"></div>
+                <div class="cssload-cube cssload2"></div>
+                <div class="cssload-cube cssload4"></div>
+                <div class="cssload-cube cssload3"></div>
+            </div>
+            <button class="nextButton nextButton8" onClick="startExam()">Start Exam</button>
+            <button class="nextButton shutdown8" onClick="shutdownServer()">restart</button>
+            <p class="errorDisplay error8"></p>
+        </div>
+
+        <div class="slide slide9">
+            <div class="object-container exam">
+                <object data="{{ url_for('static', filename='Example_Test_1.pdf')}}" type="application/pdf"></object>
+            </div>
+            <div class="object-container clock">
+                <p id="clock"></p>
+            </div>
+            <div class="object-container logfile">
+                <p id="logtitle">Events Logfile(demo-only)</p>
+                <p class="logfileText"></p>
+            </div>
+        </div>
+
+        <div class="slide slide10">
+            <p>Now it's time to collect your answers(demo-version only 1 paper)</p>
+            <p class="subtext">when the timer below becomes zero, please present your paper in front of the pc's webcam. I will than save your answers</p>
+            <!-- <button id="collectButton" onClick="collectAnswers()">Collect Answers</button> -->
+            <p id="clock2"></p>
+        </div>
+
+        <div class="slide slide11">
+            <p id="endtitle"></p>
+            <p class="subtext">Please click below to close the application</p>
+            <button class="closeButton shutdown11" onClick="shutdownServer()">close</button>
+        </div>
+
+        <ul class="bg-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+
+    </div>
+  </body>
+
+  <script src="{{ url_for('static', filename="js/index.js") }}"></script>
+
+</html>

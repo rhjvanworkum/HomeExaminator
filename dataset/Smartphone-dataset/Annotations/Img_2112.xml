@@ -1,0 +1,50 @@
+<annotation verified="yes">
+	<folder>Smartphone Images</folder>
+	<filename>Img 2112.jpg</filename>
+	<path>C:\Users\Benedicta.Kaburu\Downloads\rsg-labelImg-20190623T085753Z-001\rsg-labelImg\data\Smartphone Images\Img 2112.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>612</width>
+		<height>408</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>smartphone</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>177</xmin>
+			<ymin>18</ymin>
+			<xmax>244</xmax>
+			<ymax>70</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>smartphone</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>180</xmin>
+			<ymin>143</ymin>
+			<xmax>241</xmax>
+			<ymax>226</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>smartphone</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>347</xmin>
+			<ymin>162</ymin>
+			<xmax>398</xmax>
+			<ymax>258</ymax>
+		</bndbox>
+	</object>
+</annotation>
