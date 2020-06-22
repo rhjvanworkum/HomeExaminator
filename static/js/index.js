@@ -162,10 +162,12 @@ function verifyPCCam() {
         console.log(data);
         document.getElementsByClassName('load4')[0].style.display = "none";
         if (data == "please restart") {
+            document.getElementsByClassName('error4')[0].style.display = "block";
             document.getElementsByClassName('error4')[0].innerHTML = "Error: Please check your PC camera and restart the program";
             document.getElementsByClassName('verifyPCCamButton')[0].style.display = "none";
             document.getElementsByClassName('shutdown4')[0].style.display = "block";
         } else if (data == "try again") {
+            document.getElementsByClassName('error4')[0].style.display = "block";
             document.getElementsByClassName('error4')[0].innerHTML = "Error: Please check your PC camera/internet connection and try again";
         } else {
             document.getElementsByClassName('nextButton4')[0].style.display = "block";
@@ -188,10 +190,12 @@ function verifyPhoneCam() {
         console.log(data);
         document.getElementsByClassName('load5')[0].style.display = "none";
         if (data == "please restart") {
+            document.getElementsByClassName('error5')[0].style.display = "block";
             document.getElementsByClassName('error5')[0].innerHTML = "Error: Please check your phone camera and restart the program";
             document.getElementsByClassName('verifyPhoneCamButton')[0].style.display = "none";
             document.getElementsByClassName('shutdown5')[0].style.display = "block";
         } else if (data == "try again") {
+            document.getElementsByClassName('error5')[0].style.display = "block";
             document.getElementsByClassName('error5')[0].innerHTML = "Error: Please check your Phone camera/internet connection and try again";
         } else {
             document.getElementsByClassName('nextButton5')[0].style.display = "block";
@@ -219,10 +223,12 @@ async function verifyFace(event) {
         var count = 0;
         document.getElementsByClassName('load6')[0].style.display = "none";
         if (data == "please restart") {
+            document.getElementsByClassName('error6')[0].style.display = "block";
             document.getElementsByClassName('error6')[0].innerHTML = "Error: Please check your PC camera and restart the program";
             document.getElementById('student-select').style.display = "none";
             document.getElementsByClassName('shutdown6')[0].style.display = "block";
         } else if (data == "try again") {
+            document.getElementsByClassName('error6')[0].style.display = "block";
             document.getElementsByClassName('error6')[0].innerHTML = "Error: Please check your Phone camera/internet connection and try again";
         } else {
             for (let i = 0; i < data.length; i++) {
@@ -235,6 +241,7 @@ async function verifyFace(event) {
 
             if (count == data.length) {
                 document.getElementById('student-select').value = "Test Student";
+                document.getElementsByClassName('error6')[0].style.display = "block";
                 document.getElementsByClassName('error6')[0].innerHTML = "Error: Are you sure you clicked the right student? Please try again.";
             }
         }
@@ -260,10 +267,12 @@ async function verifyHands() {
         console.log(data)
         document.getElementsByClassName('load7')[0].style.display = "none";
         if (data == "please restart") {
+            document.getElementsByClassName('error7')[0].style.display = "block";
             document.getElementsByClassName('error7')[0].innerHTML = "Error: Please check your Phone camera and restart the program";
             document.getElementsByClassName('verifyHandsButton')[0].style.display = "none";
             document.getElementsByClassName('shutdown7')[0].style.display = "block";
         } else if (data == "try again") {
+            document.getElementsByClassName('error7')[0].style.display = "block";
             document.getElementsByClassName('error7')[0].innerHTML = "Error: Please check your Phone camera/internet connection and try again";
         } else {
             for (let i = 0; i < data.length; i++) {
@@ -276,6 +285,7 @@ async function verifyHands() {
             }
 
             if (count == data.length) {
+                document.getElementsByClassName('error7')[0].style.display = "block";
                 document.getElementsByClassName('error7')[0].innerHTML = "Error: Please make sure we can see your desk and hands and try again";
             }
         }
@@ -299,17 +309,21 @@ async function verifyAudio() {
         document.getElementsByClassName('load8')[0].style.display = "none";
 
         if (data == "please restart") {
+            document.getElementsByClassName('error8')[0].style.display = "block";
             document.getElementsByClassName('error8')[0].innerHTML = "Error: Please check IP webcam app and restart the program";
             document.getElementsByClassName('verifyAudioButton')[0].style.display = "block";
             document.getElementsByClassName('shutdown8')[0].style.display = "block";
         } else if (data == "try again") {
+            document.getElementsByClassName('error8')[0].style.display = "block";
             document.getElementsByClassName('error8')[0].innerHTML = "Error: Please check your IP webcam app/internet connection and try again";
         } else {
             if (data == "Audio okay") {
                 document.getElementsByClassName('nextButton8')[0].style.display ="block";
+                document.getElementsByClassName('error8')[0].style.display = "block";
                 document.getElementsByClassName('error8')[0].innerHTML = "You have passed the verifications, you can now start the exam";
 
             } else {
+                document.getElementsByClassName('error8')[0].style.display = "block";
                 document.getElementsByClassName('error8')[0].innerHTML = "Error: Are you sure that your phone and pc are in the same room? Please try again";
             }
         }
@@ -323,7 +337,7 @@ function startExam() {
 
     sendRequest('http://localhost:5000/start_exam?student=' + student.replace(/ /g,"_")).then(function(data) {
         if (data == "Exam started") {
-            clockTimer(30, 'clock', "TIME IS UP");
+            clockTimer(180, 'clock', "TIME IS UP");
 
             loadLogfile();
         }
@@ -369,7 +383,17 @@ function loadLogfile() {
 
     Promise.all([logPromise, timeOutPromise]).then(function(response) {
         console.log(response[0]);
-        document.getElementsByClassName('logfileText')[0].innerHTML = response[0].replace("[", "").replace("]", "").replace("_", "\n");
+        var eventcount = 0
+        var message = "";
+        for (let i = 0; i < response[0].split(',').length; i++) {
+            message = message + response[0].split(',')[i] + "<br />";
+            eventcount += 1;
+        }
+        document.getElementsByClassName('logfileText')[0].innerHTML = message.replace("[", "").replace("]", "").replace('"', "");
+
+        if (eventcount == 7) {
+            message = "";
+        }
 
         loadLogfile();
     });
@@ -390,11 +414,4 @@ async function takePhoto() {
             slider();
         }
     });
-}
-
-// slide 11
-
-// function to close window
-function closeWindow() {
-    window.close();
 }

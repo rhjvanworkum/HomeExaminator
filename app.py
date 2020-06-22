@@ -66,14 +66,13 @@ def pc_camera_listener(student):
         image, names = faceDetector.detect(pc_camera_frame)
         if (not names):
             print("no person present")
-            # file_lines.append("No person present_")
         else:
             for i in range(len(names)):
                 if (names[i] != student):
                     print("event")
                     # make log of this
                     # print("A person different from the actual is present, namely" + names[i])
-                    file_lines.append("A person different from the actual is present, namely" + names[i] + "_")
+                    file_lines.append("A person different from the actual is present: " + names[i] + ",")
 
         # now handle the phone detection
         frame, objects = phoneDetector.detect(pc_camera_frame)
@@ -82,9 +81,9 @@ def pc_camera_listener(student):
                 print("event")
                 # make log of this
                 # print("use of cell phone detected")
-                file_lines.append("use of cell phone detected_")
+                file_lines.append("use of cell phone detected,")
 
-        with open('static/log.txt', 'w') as f:
+        with open('static/log.txt', 'a') as f:
             f.writelines(file_lines)
 
 # listener function for events on phone camera
@@ -112,14 +111,15 @@ def phone_camera_listener():
         if (hands_gone_period > 7):
             print("event")
             # make log of this
-            file_lines.append("Hands  were out of sight for longer than 7 seconds_")
+            file_lines.append("Hands  were out of sight for longer than 7 seconds,")
 
         frame, objects = phoneDetector.detect(pc_camera_frame)
+        print(objects)
         for i in range(len(objects)):
             if (objects[i] == 'cell phone'):
                 print("event")
                 # make log of this
-                file_lines.append("use of cell phone detected_")
+                file_lines.append("use of cell phone detected,")
 
         with open('static/log.txt', 'a') as f:
             f.writelines(file_lines)
@@ -164,8 +164,8 @@ def gen_hands():
 
 def gen_logfile():
     with open('static/log.txt', 'r') as file:
-        data = file.read().replace('\n', '')
-    yield(data)
+        data = file.read()
+        yield(data)
 
 # for first time users - demo only
 @app.route('/register', methods=['POST', 'GET'])
@@ -280,9 +280,9 @@ def start_exam():
     student = request.args.get('student')
     print(request.args)
 
-    # app.apscheduler.add_job(func=freeze_input, args=[40.0], trigger='date', id="freeze_input")
+    app.apscheduler.add_job(func=freeze_input, args=[190.0], trigger='date', id="freeze_input")
     app.apscheduler.add_job(func=pc_camera_listener, args=[student], trigger='date', id="pc_camera_listener")
-    # app.apscheduler.add_job(func=phone_camera_listener, trigger='date', id="phone_camera_listener")
+    app.apscheduler.add_job(func=phone_camera_listener, trigger='date', id="phone_camera_listener")
 
     return Response(json.dumps("Exam started"))
 
@@ -290,7 +290,7 @@ def start_exam():
 
 @app.route('/logfile')
 def logfile():
-    return Response(json.dumps(gen_logfile(), iterable_as_array=True))
+    return Response(json.dumps(gen_logfile(), iterable_as_array=True, indent=2))
 
 @app.route('/collect_answers')
 def collect_answers():
@@ -307,25 +307,22 @@ def shutdown():
 
 if __name__ == '__main__':
 
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument('--ipadress', required=True)
-    # parser.add_argument('--chromium', required=True)
-    # parser.add_argument('--killchrome', required=True)
-    # args = parser.parse_args()
-    #
-    # if (args.killchrome == True):
-    #     t = threading.Thread(target=kill_processes())
-    #     t.start()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--ipadress', required=True)
+    parser.add_argument('--chromium', required=True)
+    parser.add_argument('--killchrome', required=True)
+    args = parser.parse_args()
 
-    # chromium = 'C:/Users/Admin/AppData/Local/Chromium/Application/chrome.exe'
-    ipadress = '192.168.1.114'
+    if (args.killchrome == True):
+        t = threading.Thread(target=kill_processes())
+        t.start()
 
-    # t = threading.Thread(target=start_browser(chromium))
-    # t.start()
+    t = threading.Thread(target=start_browser(args.chromium))
+    t.start()
 
     pc_camera_frame = None
     phone_camera_frame = None
-    url = "http://" + ipadress + ':8080'
+    url = "http://" + args.ipadress + ':8080'
     ok = None
     vs = None
 

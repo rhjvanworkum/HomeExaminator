@@ -321,6 +321,7 @@ object {
   width: 24%;
   font-family: 'Montserrat', sans-serif;
   color: white;
+  overflow-y: scroll;
 }
 
 #clock {
@@ -332,6 +333,7 @@ object {
 
 .logfileText {
   font-family: 'Montserrat', sans-serif;
+  line-height: 1.5;
   color: white;
   font-size: 16px;
 }

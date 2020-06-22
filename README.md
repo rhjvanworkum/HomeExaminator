@@ -2,7 +2,7 @@
 
 A python/flask based online examination program using Computer Vision, currently suitable for exams made with pen and paper
 
-### functionality
+### Functionality
 - Uses a Flask app for the front-end interface and back-end calculations(both frond and back-end currently just run on the local computer, in the future the back-end could also be deployed to a virtual machine, with better CPU/GPU power for the models)
 - Uses dlib face recognition model to recognize a person over live webcam video stream
 - Uses 2 YOLOV3 object detetion model to recognize hands and smartphones
@@ -19,16 +19,20 @@ A python/flask based online examination program using Computer Vision, currently
 7.	Open a terminal and type: pip install requirements.txt
 8. 	In the terminal also type: pipwin install pyaudio
 9.	And to run the Home Examinator type in the terminal: python app.py –-ipadress 'your ip adress'
---killchrome 'True/False' --chromium 'your path to chrome'
-   (example: python app.py --ipadress 198.168.1.114 --killchrome True --chromium C:/Users/Admin/AppData/Local/Chromium/Application/chrome.exe)
+--killchrome 'True/False' --chromium 'your path to chrome' <br /> 
+(example: python app.py --ipadress 198.168.1.114 --killchrome True <br /> --chromium C:/Users/Admin/AppData/Local/Chromium/Application/chrome.exe). **The killchrome argument can only be set to true if you actually have a chrome tab open, otherwise the bash script won't run**
+
+### Usage
+- The interface is pretty self-explanatory, but there is also a video guide, codeChallenge/guide.mp4
 
 ### Equipment:
 Personally I have used a flexible phone holder attached to my desk, to get the right camera angle for the
 phone video datastream
 
-![image info](./phoneholder.jpg)
+![image info](./codeChallenge/phoneholder.jpg)
 
 ### File structure:
+-   Code Challenge folder: contains all the files regarding the code challenge
 -	Dataset folder: contains all face images and my Smartphone images dataset
 -	Output folder: contains the encodings for the faces to recognize and an image of the exams answers
 -	Static folder: contains static files for the flask webserver, css files, js files, the exam and the log file of the exam
