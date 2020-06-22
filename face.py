@@ -1,3 +1,5 @@
+# inspired by Adrian Rosebrock from pyimagesearch
+
 import pickle
 import cv2
 import face_recognition
@@ -9,8 +11,6 @@ class FaceDetector(object):
         self.face_data = pickle.loads(open('output/encodings.pickle', "rb").read())
 
     def detect(self, frame):
-        # convert the input frame from BGR to RGB then resize it to have
-        # a width of 750px (to speedup processing)
         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         rgb = imutils.resize(frame, width=750)
         r = frame.shape[1] / float(rgb.shape[1])
@@ -34,7 +34,6 @@ class FaceDetector(object):
 
         # visualization
         for ((top, right, bottom, left), name) in zip(boxes, names):
-            # rescale the face coordinates
             top = int(top * r)
             right = int(right * r)
             bottom = int(bottom * r)

@@ -1,3 +1,5 @@
+# inspired by Adrian Rosebrock from pyimagesearch
+
 import numpy as np
 import cv2
 import os
@@ -35,8 +37,6 @@ class YoloDetector(object):
 		self.net.setInput(blob)
 		layerOutputs = self.net.forward(self.ln)
 
-		# initialize our lists of detected bounding boxes, confidences,
-		# and class IDs, respectively
 		boxes = []
 		confidences = []
 		classIDs = []
@@ -46,13 +46,12 @@ class YoloDetector(object):
 		for output in layerOutputs:
 			# loop over each of the detections
 			for detection in output:
-				# extract the class ID and confidence (i.e., probability)
-				# of the current object detection
+				# extract the class ID and confidence of the current object detection
 				scores = detection[5:]
 				classID = np.argmax(scores)
 				confidence = scores[classID]
-				# filter out weak predictions by ensuring the detected
-				# probability is greater than the minimum probability
+
+				# throw away less confident detections
 				if confidence > self.input_confidence:
 					# scale the bounding box coordinates back relative to
 					# the size of the image, keeping in mind that YOLO
@@ -71,14 +70,11 @@ class YoloDetector(object):
 					confidences.append(float(confidence))
 					classIDs.append(classID)
 
-		# apply non-maxima suppression to suppress weak, overlapping
-		# bounding boxes
+		# apply non-maxima suppression
 		idxs = cv2.dnn.NMSBoxes(boxes, confidences, self.input_confidence,
 								self.threshold)
 
-		# ensure at least one detection exists
 		if len(idxs) > 0:
-			# loop over the indexes we are keeping
 			for i in idxs.flatten():
 				# add object to objects list
 				objects.append(self.LABELS[classIDs[i]])

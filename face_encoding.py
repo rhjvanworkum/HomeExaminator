@@ -3,7 +3,6 @@ import face_recognition
 import pickle
 import cv2
 
-
 def save_faces():
     #settings
     dataset = './dataset/faces_dataset/'
@@ -19,9 +18,7 @@ def save_faces():
         image = cv2.imread(image_path)
         rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-        # detect the (x, y)-coordinates of the bounding boxes
         boxes = face_recognition.face_locations(rgb, model=detection_method)
-        # compute the facial embedding for the face
         encodings = face_recognition.face_encodings(rgb, boxes)
         for encoding in encodings:
             face_encodings.append(encoding)

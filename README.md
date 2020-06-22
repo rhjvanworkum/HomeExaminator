@@ -1,6 +1,6 @@
 # Home Examinator Demo-version
 
-A python/flask based online examination program using Computer Vision
+A python/flask based online examination program using Computer Vision, currently suitable for exams made with pen and paper
 
 ### functionality
 - Uses a Flask app for the front-end interface and back-end calculations(both frond and back-end currently just run on the local computer, in the future the back-end could also be deployed to a virtual machine, with better CPU/GPU power for the models)
@@ -11,17 +11,22 @@ A python/flask based online examination program using Computer Vision
 ### How to install / run the software:
 1.	Install Pycharm, or another python IDE
 2.	Make sure you have Python version 3.7 installed on your computer
-3.	Download the IP webcam app on your phone and set ‘enable audio’ under misc to true
+3.	Download the IP webcam app on your phone and set ‘enable audio’ under misc to true, also notate the ip adress that the IP webcam app tells you un the screen
 4.	Git clone the project into the IDE
-5.	Download chromium.exe in the same folder
-6.	Start the IDE as an administrator
-7.	Click pip install requirements.txt
-8. 	pipwin install pyaudio
-9.	In Terminal: python app.py –ipadress your ip adress (example: python app.py -ipadress 198.168.1.114)
+5.	Download the latest version of chromium for your system at http://commondatastorage.googleapis.com/chromium-browser-snapshots/index.html
+ and find the location of the chrome.exe executable
+6.	Start pycharm as an administrator
+7.	Open a terminal and type: pip install requirements.txt
+8. 	In the terminal also type: pipwin install pyaudio
+9.	And to run the Home Examinator type in the terminal: python app.py –-ipadress 'your ip adress'
+--killchrome 'True/False' --chromium 'your path to chrome'
+   (example: python app.py --ipadress 198.168.1.114 --killchrome True --chromium C:/Users/Admin/AppData/Local/Chromium/Application/chrome.exe)
 
 ### Equipment:
 Personally I have used a flexible phone holder attached to my desk, to get the right camera angle for the
 phone video datastream
+
+![image info](./phoneholder.jpg)
 
 ### File structure:
 -	Dataset folder: contains all face images and my Smartphone images dataset
