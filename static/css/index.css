@@ -70,6 +70,7 @@ button {
 .verifyButton {
   left: 38%;
   font-size: 2.5vh;
+  animation-duration: 4s;
   -webkit-animation-duration: 4s;
 }
 
@@ -104,7 +105,7 @@ select:focus {outline:0;}
 
 /* slide 1 */
 
-.slide4 {
+.slide1 {
   display: block;
 }
 
@@ -237,6 +238,8 @@ form {
 .nextButtonRegister {
   display: none;
   left: 38%;
+  font-size: 2.5vh;
+  animation-duration: 4s;
   -webkit-animation-duration: 4s;
 }
 

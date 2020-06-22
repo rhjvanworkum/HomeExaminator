@@ -52,7 +52,7 @@
                 <div class="cssload-cube cssload4"></div>
                 <div class="cssload-cube cssload3"></div>
             </div>
-            <button class="nextButton nextButtonRegister">Continue</button>
+            <button class="nextButtonRegister" onClick="restart()">Continue</button>
 
         </div>
 
@@ -88,7 +88,7 @@
 
         <div class="slide slide6">
             <p>Time to check if it is really you...</p>
-            <p class="subtext">Please select your name and press the button to verify</p>
+            <p class="subtext">Please select your name and look into the camera for a few seconds</p>
             <select id="student-select" class="select" method="GET" action="/">
                 {% for student in students %}
                 <option class="options" value= "{{student}}" SELECTED>{{student}}</option>"
@@ -121,7 +121,7 @@
 
         <div class="slide slide8">
             <p>Final check: Are your phone and pc close enough?</p>
-            <p id="subtext-audio" class="subtext">press the button below and say: hello my name is + your name, out loud</p>
+            <p id="subtext-audio" class="subtext">press the button below and say: "Hello my name is + your name, out loud"</p>
             <button class="verifyButton verifyAudioButton" onClick="verifyAudio()">Verify Audio</button>
             <div class="cssload load8">
                 <div class="cssload-cube cssload1"></div>

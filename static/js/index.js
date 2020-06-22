@@ -70,9 +70,14 @@ Array.from(nextButtons).forEach(function(element) {
 
 // function for shutting down the program
 function shutdownServer() {
-    window.location.href = '/closekiosk';
-    // sendRequest('http://localhost:5000/shutdown').then(function(data) {
-    // });
+    window.location.href = "http://closekiosk";
+    sendRequest('http://localhost:5000/shutdown').then(function(data) {
+    });
+}
+
+// funciton for restarting after registration
+function restart() {
+    window.location.href = "http://localhost:5000";
 }
 
 // declare student variable
@@ -122,8 +127,8 @@ function submitForm() {
         console.log($('input[type=text]')[0].value);
         console.log($('input[type=file]')[0].files[0]);
         data.append('name', $('input[type=text]')[0].value)
-        data.append('image', $('input[type=file]')[0].files[0]); 
-    
+        data.append('image', $('input[type=file]')[0].files[0]);
+
         fetch('http://localhost:5000/register', {
             method: 'post',
             body: data,
@@ -150,6 +155,7 @@ function verifyPCCam() {
         left: "16%"
     }, 1000, function() {
         document.getElementsByClassName('load4')[0].style.display = "block";
+        document.getElementsByClassName('error4')[0].style.display = "none";
     });
 
     sendRequest('http://localhost:5000/verify_pc_cam').then(function(data) {
@@ -175,6 +181,7 @@ function verifyPhoneCam() {
         left: "16%"
     }, 1000, function() {
         document.getElementsByClassName('load5')[0].style.display = "block";
+        document.getElementsByClassName('error5')[0].style.display = "none";
     });
 
     sendRequest('http://localhost:5000/verify_phone_cam').then(function(data) {
@@ -200,6 +207,7 @@ async function verifyFace(event) {
         left: "16%"
     }, 1000, function() {
         document.getElementsByClassName('load6')[0].style.display = "block";
+        document.getElementsByClassName('error6')[0].style.display = "none";
     });
 
     student = event.target.value
@@ -226,6 +234,7 @@ async function verifyFace(event) {
             }
 
             if (count == data.length) {
+                document.getElementById('student-select').value = "Test Student";
                 document.getElementsByClassName('error6')[0].innerHTML = "Error: Are you sure you clicked the right student? Please try again.";
             }
         }
@@ -241,6 +250,7 @@ async function verifyHands() {
         left: "16%"
     }, 1000, function() {
         document.getElementsByClassName('load7')[0].style.display = "block";
+        document.getElementsByClassName('error7')[0].style.display = "none";
     });
 
     await sleep(1000);
@@ -259,7 +269,7 @@ async function verifyHands() {
             for (let i = 0; i < data.length; i++) {
                 if (data[i][0] == "hand") {
                     document.getElementsByClassName('nextButton7')[0].style.display ="block";
-                    document.getElementById('subtext-audio').innerHTML = "press the button below and say: hello my name is " + student + ", slowly and out loud";
+                    document.getElementById('subtext-audio').innerHTML = "press the button below and say: ' Hello my name is " + student + ", slowly and out loud' ";
                 } else {
                     count += 1;
                 }
@@ -281,6 +291,7 @@ async function verifyAudio() {
         left: "16%"
     }, 1000, function() {
         document.getElementsByClassName('load8')[0].style.display = "block";
+        document.getElementsByClassName('error8')[0].style.display = "none";
     });
 
     sendRequest('http://localhost:5000/verify_audio').then(function(data) {
@@ -309,7 +320,7 @@ async function verifyAudio() {
 
 // function for if start exam button is pressed, starts the live timer and event log file stream
 function startExam() {
-    
+
     sendRequest('http://localhost:5000/start_exam?student=' + student.replace(/ /g,"_")).then(function(data) {
         if (data == "Exam started") {
             clockTimer(30, 'clock', "TIME IS UP");
@@ -358,7 +369,7 @@ function loadLogfile() {
 
     Promise.all([logPromise, timeOutPromise]).then(function(response) {
         console.log(response[0]);
-        document.getElementsByClassName('logfileText')[0].innerHTML = response[0].replace("[", "").replace("]", "");
+        document.getElementsByClassName('logfileText')[0].innerHTML = response[0].replace("[", "").replace("]", "").replace("_", "\n");
 
         loadLogfile();
     });
