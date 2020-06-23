@@ -69,18 +69,14 @@ def pc_camera_listener(student):
         else:
             for i in range(len(names)):
                 if (names[i] != student):
-                    print("event")
                     # make log of this
-                    # print("A person different from the actual is present, namely" + names[i])
                     file_lines.append("A person different from the actual is present: " + names[i] + ",")
 
         # now handle the phone detection
         frame, objects = phoneDetector.detect(pc_camera_frame)
         for i in range(len(objects)):
             if (objects[i] == 'cell phone'):
-                print("event")
                 # make log of this
-                # print("use of cell phone detected")
                 file_lines.append("use of cell phone detected,")
 
         with open('static/log.txt', 'a') as f:
@@ -95,29 +91,27 @@ def phone_camera_listener():
     handDetector = YoloDetector('./yoloHandsTiny')
     phoneDetector = YoloDetector('./yoloColoV3')
     file_lines = []
+    hands_gone_period = 0
 
     while True:
         # first handle the hand detection
-        hands_gone_period = 0
         frame, objects = handDetector.detect(pc_camera_frame)
-
+        print(objects)
         if (len(objects) == 1):
             hands_gone_period += 0.5
-        elif (len(objects) == 0):
+        elif (not objects):
             hands_gone_period += 1
         elif (len(objects) >= 2):
             hands_gone_period = 0
 
-        if (hands_gone_period > 7):
-            print("event")
+        if (hands_gone_period > 10):
+            hands_gone_period = 0
             # make log of this
-            file_lines.append("Hands  were out of sight for longer than 7 seconds,")
+            file_lines.append("Hands  were out of sight for longer than 10 seconds,")
 
         frame, objects = phoneDetector.detect(pc_camera_frame)
-        print(objects)
         for i in range(len(objects)):
             if (objects[i] == 'cell phone'):
-                print("event")
                 # make log of this
                 file_lines.append("use of cell phone detected,")
 

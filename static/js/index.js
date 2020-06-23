@@ -70,7 +70,7 @@ Array.from(nextButtons).forEach(function(element) {
 
 // function for shutting down the program
 function shutdownServer() {
-    window.location.href = "http://closekiosk";
+    window.location.href = 'http://exitkiosk';
     sendRequest('http://localhost:5000/shutdown').then(function(data) {
     });
 }
